@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+    
+    {% csrf_token %}
+    <div class="row">
+        <h3>Apply any number of filters...</h3>
+        <div class="container">
+            {% crispy form %}
+        </div>
+    </div>
+    <script>
+        var elem = '{{ limit }}';
+        console.log("limit", elem);
+        var button = document.getElementById("submit-id-search_query")
+        if (elem == 'True')
+        {
+            button.type = "button";
+            button.onclick = window.alert("Session limit reached...!! Try after some time again...");
+        }
+    </script> 
+{% endblock %}
+
+

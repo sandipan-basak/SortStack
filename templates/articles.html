@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+    {% if page_obj %}
+        {% csrf_token %}
+        <form action="GET">
+            <nav style="height: 500px; overflow: hidden; overflow-y: auto;"> <ul>
+                {% for article in page_obj %}
+                    <div class="card mb-3 col-12">
+                        <div class="card-body scroll">
+                            {{article.title}} <br>
+                            {{article.creation_date}} <br>
+                            View Count: {{article.view_count}} <br>
+                            <div>
+                                <a href="{{ article.link }}" target="_blank" rel="noopener noreferrer"><button type="button" class="btn-sm btn-info">Article Link</button></a> <br>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </ul> </nav>
+            <hr>
+            <div class="pagination d-flex justify-content-end">
+                <span class="step-links p-2">
+                    {% if page_obj.has_previous %}
+                        <a href="?page=1"><button class="btn-sm btn-secondary" type="button">&laquo; first</button></a>
+                        <a href="?page={{ page_obj.previous_page_number }}"><button class="btn-sm btn-secondary" type="button">previous</button></a>
+                    {% endif %}
+                    <span class="current">
+                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                    </span>
+                    {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}"><button class="btn-sm btn-secondary" type="button">next</button></a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}"><button class="btn-sm btn-secondary" type="button" >last &raquo;</button></a>
+                    {% endif %}
+                </span>
+            </div>
+        </form>
+    {% else %}
+    <h3>No data for the query...!!</h3>
+    {% endif %}
+{% endblock %}
