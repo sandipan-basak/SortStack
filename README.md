@@ -23,5 +23,3 @@ Steps to start the app locally:
 
 `python manage.py runserver`
 
-Download and enjoy the songs locally..!!
-
